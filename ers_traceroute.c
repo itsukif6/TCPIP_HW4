@@ -1,3 +1,8 @@
+// 1. 在 VirtualBox 視窗上方選單，點擊 裝置 (Devices) -> 網路 (Network) -> 網路設定 (Network Settings)。
+// 2. 在 「附加到 (Attached to)」 的選項中，把 NAT 改成 橋接介面卡 (Bridged Adapter)。
+// 3. 在下方的 「名稱 (Name)」 選擇你實體電腦正在使用的網卡（例如你的 Wi-Fi 卡或是乙太網路卡）。
+// 4. 點擊 OK。
+// 5. 回到 Ubuntu 終端機，重啟網路連線（或者直接重啟虛擬機 reboot）。
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -123,7 +128,7 @@ int receive_icmp_reply(int sockfd, char *from_addr, int addr_len) {
     // 解析 ICMP header
     icmp_hdr = (struct icmp *)(buffer + ip_hdr_len);
     
-    // 檢查是否為我們期待的回應
+    // 檢查是否為期待的回應
     if (icmp_hdr->icmp_type == ICMP_TIME_EXCEEDED || 
         icmp_hdr->icmp_type == ICMP_ECHOREPLY) {
         inet_ntop(AF_INET, &(recv_addr.sin_addr), from_addr, addr_len);
